@@ -7,6 +7,7 @@ from dofus import bootstrap_app
 from dofus.managers import populate_manager
 
 app = bootstrap_app()
+app.debug = True
 
 manager = Manager(app)
 
