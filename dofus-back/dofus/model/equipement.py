@@ -1,6 +1,5 @@
 from flask import current_app
-from umongo import Document, fields, validate
-from umongo.dal.pymongo import PyMongoDal
+from umongo import Document, fields, validate, pymongo_lazy_loader
 
 from dofus.model.panoplie import Panoplie
 
@@ -12,8 +11,7 @@ EQUIPEMENT_TYPE = ("Amulette", "Anneau", "Bottes", "Cape", "Bouclier",
 class Equipement(Document):
     class Meta:
         indexes = ['title', 'level', 'type', 'dofus_link']
-        lazy_collection = lambda: current_app.db.equipement
-        dal = PyMongoDal
+        lazy_collection = pymongo_lazy_loader(lambda: current_app.db.equipement)
 
     title = fields.StringField(required=True, unique=True)
     level = fields.IntField(default=1, required=True)

@@ -1,12 +1,10 @@
-from umongo import Document, fields
-from umongo.dal.pymongo import PyMongoDal
+from umongo import Document, fields, pymongo_lazy_loader
 
 
 class Panoplie(Document):
     class Meta:
         indexes = ['title', 'level']
-        lazy_collection = lambda: current_app.db.equipement
-        dal = PyMongoDal
+        lazy_collection = pymongo_lazy_loader(lambda: current_app.db.equipement)
 
     title = fields.StringField(required=True, unique=True)
     level = fields.IntField(missing=1, required=True)
