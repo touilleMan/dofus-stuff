@@ -1,7 +1,7 @@
 "use strict"
 
 
-angular.module('app.accueil', ['misc.accueilTemplate', 'ngRoute'])
+angular.module('app.accueil', ['misc.accueilTemplate', 'ngRoute', 'xin.backend'])
   .config ($routeProvider) ->
     $routeProvider
       .when '/accueil', {
@@ -11,4 +11,8 @@ angular.module('app.accueil', ['misc.accueilTemplate', 'ngRoute'])
       }
 
 
-  .controller 'AccueilController', ($scope) ->
+  .controller 'AccueilController', ($scope, Backend) ->
+    test = Backend("test").get(
+      (response) -> console.log("success", response)
+      (response) -> console.log("error", response)
+    )

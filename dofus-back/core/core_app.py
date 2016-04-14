@@ -1,4 +1,5 @@
 from flask import Flask
+from flask.ext import cors
 from flask.ext.mongoengine import MongoEngine
 
 from core.encoders import ObjectIdConverter
@@ -16,4 +17,16 @@ class CoreApp(Flask):
         self.db = MongoEngine()
 
     def bootstrap(self):
+        """
+        Initialize modules needing configuration
+
+        :example:
+
+            >>> app = CoreApp("my-app")
+            >>> app.config['MY_CONF'] = 'DEFAULT_VALUE'
+            >>> app.bootstrap()
+        """
+        # Principal and CORS support must be initialized at bootstrap time
+        # in order to have up-to-date config
+        self._cors = cors.CORS(self)
         self.db.init_app(self)
