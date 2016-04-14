@@ -130,7 +130,6 @@ class MyHTMLParserEquipPage(HTMLParser):
         self.effets_level = 0
 
     def handle_starttag(self, tag, attrs):
-        # Tests
         # fix
         if tag == "img" and "title" in list(self.equipement.keys()) and not self.picture:
             src, ref = attrs[0]
@@ -210,26 +209,32 @@ def rescue_href(tree):
 
 
 def rescue_element_page(href):
-    r = get(DOFUS_DOMAIN+href)
+    dofus_link = DOFUS_DOMAIN+href
+    # check if allready exist
+    if Equipement.objects(dofus_link=dofus_link).count():
+        return
+    # get
+    r = get(dofus_link)
     if r.status_code == 200:
         parser = MyHTMLParserEquipPage()
         html = r.text
         parser.feed(html)
         eq = parser.equipement
         effects = {}
-        for effect in eq["effects"]:
-            m = re.match(r"(?P<from>\d+)( à (?P<to>\d+))?(?P<percent>%?) (?P<carac>.*)", effect)
-            _from = m.group('from')
-            _to = m.group('to')
-            _percent = m.group('percent')
-            _carac = m.group('carac')
-            effects[_carac] = {
-                'min': _from,
-                'max': _to if (_to) else _from,
-                'percent': True if (_percent == "%") else False
-            }
+        if "effects" in list(eq.keys()):
+            for effect in eq["effects"]:
+                m = re.match(r"(?P<from>-?\d+)( à (?P<to>-?\d+))?(?P<percent>%?) (?P<carac>.*)", effect)
+                _from = m.group('from')
+                _to = m.group('to')
+                _percent = m.group('percent')
+                _carac = m.group('carac')
+                effects[_carac] = {
+                    'min': _from,
+                    'max': _to if (_to) else _from,
+                    'percent': True if (_percent == "%") else False
+                }
         equipement = Equipement(title=eq["title"], level=eq["level"], type=eq["type"],
-                                image=eq["picture"], effects=effects)
+                                image=eq["picture"], effects=effects, dofus_link=dofus_link)
         try:
             equipement.save()
         except mongoengine.errors.NotUniqueError as e:
@@ -240,23 +245,25 @@ def rescue_element_page(href):
 
 @populate_manager.command
 def populate():
-    # drop database
-    current_app.db.connection.drop_database("dofus")
-    #
     # for page in amulettes_pages:
-    for page in [1]:
+    for page in amulettes_pages:
         r = get(amulettes+str(page))
         if r.status_code == 200:
             parser = MyHTMLParserList()
             html = r.text
             parser.feed(html)
             hrefs = rescue_href(parser.tree)
-            rescue_element_page(hrefs[0])
-            # for href in hrefs:
-            #     rescue_element_page(href)
+            for href in hrefs:
+                rescue_element_page(href)
 
         else:
             print("code", r.status_code)
+
+
+@populate_manager.command
+def drop_database():
+    # drop database
+    current_app.db.connection.drop_database("dofus")
 
 
 if __name__ == "__main__":
