@@ -10,7 +10,7 @@ app = bootstrap_app()
 
 manager = Manager(app)
 
-manager.add_command("runserver", Server())
+manager.add_command("runserver", Server(host="0.0.0.0", port="5000"))
 manager.add_command("populate", populate_manager)
 
 if __name__ == "__main__":
