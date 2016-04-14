@@ -12,7 +12,7 @@ angular.module('app.accueil', ['misc.accueilTemplate', 'ngRoute', 'xin.backend']
 
 
   .controller 'AccueilController', ($scope, Backend) ->
-    test = Backend("test").get(
+    test = Backend("equipements").get(
       (response) -> console.log("success", response)
       (response) -> console.log("error", response)
     )

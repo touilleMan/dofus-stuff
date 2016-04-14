@@ -6,8 +6,9 @@ api = Api()
 
 
 # equipement
-api.add_resource(equipement_api.EquipementListAPI, '/')
-api.add_resource(equipement_api.EquipementAPI, '/<objectid:item_id>')
+api.add_resource(equipement_api.EquipementListAPI, '/equipements')
+api.add_resource(equipement_api.EquipementAPI, '/equipements/<objectid:item_id>')
+#
 
 
 __all__ = ('api')
