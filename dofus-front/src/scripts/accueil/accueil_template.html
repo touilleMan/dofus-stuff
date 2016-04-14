@@ -1,5 +1,10 @@
-<div>
-  <div style="position: relative; left: 20px; float: left;">
+<div class="action-bar">
+  <a class="btn btn-default" href="#/equipements">Equipements</a>
+  <button class="btn btn-default" ng-click="compute()">Compute</button>
+</div>
+
+<div class=row>
+  <div class="col-xs-1">
     <div class="stuff-cell"
          ng-model="dofus_1">
     </div>
@@ -20,7 +25,7 @@
     </div>
   </div>
 
-  <div style="position: relative; left: 40px; float: left;">
+  <div class="col-xs-1">
     <div class="stuff-cell"
          ng-model="amulette">
     </div>
@@ -38,9 +43,11 @@
     </div>
   </div>
 
-  <img ng-src="{{}}" alt="personnage" height="300" width="250" style="border: 2px solid grey;">
+  <div class="col-xs-3">
+    <img ng-src="{{}}" alt="personnage" height="300" width="250" style="border: 2px solid grey;">
+  </div>
 
-  <div style="position: relative; left: 350px; float: left;">
+  <div class="col-xs-1">
     <div class="stuff-cell"
          ng-model="chapeau">
     </div>
@@ -56,5 +63,90 @@
     <div class="stuff-cell"
          ng-model="familier">
     </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-1"></div>
+  <div class="col-xs-2">Bases</div>
+  <div class="col-xs-2">Parchemins</div>
+  <div class="col-xs-2">Objectifs</div>
+</div>
+
+<div class="row">
+  <div class="col-xs-1">Vitalité</div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="base.vitalite">
+  </div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="parcho.vitalite">
+  </div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="objectif.vitalite">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-1">Sagesse</div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="base.sagesse">
+  </div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="parcho.sagesse">
+  </div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="objectif.sagesse">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-1">Force</div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="base.force">
+  </div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="parcho.force">
+  </div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="objectif.force">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-1">Intelligence</div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="base.intelligence">
+  </div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="parcho.intelligence">
+  </div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="objectif.intelligence">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-1">Agilité</div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="base.agilite">
+  </div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="parcho.agilite">
+  </div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="objectif.agilite">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-1">Chance</div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="base.chance">
+  </div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="parcho.chance">
+  </div>
+  <div class="col-xs-2">
+    <input type="number" ng-model="objectif.chance">
   </div>
 </div>

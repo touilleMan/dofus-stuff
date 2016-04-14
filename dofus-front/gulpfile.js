@@ -133,6 +133,16 @@ gulp.task('bower:scripts', function() {
 })
 
 //
+gulp.task('bower:less', function() {
+  return gulp
+    .src(bowerFiles({'filter': '**/*.less'}), {base: 'bower_components'})
+    .pipe(less())
+    .pipe(cleanCSS())
+    .pipe(concat("bower_components_2.min.css"))
+    .pipe(gulp.dest(paths.dist+"/css"))
+})
+
+//
 gulp.task('bower:stylesheets', function() {
   return gulp
     .src(bowerFiles({'filter': '**/*.css'}), {base: 'bower_components'})
@@ -150,10 +160,10 @@ gulp.task('bower:fonts', function() {
 })
 
 // Injecting all files for development
-gulp.task('index', ['bower:scripts', 'bower:stylesheets', 'bower:fonts'], function() {
+gulp.task('index', ['bower:scripts', 'bower:stylesheets', 'bower:less', 'bower:fonts'], function() {
   return gulp
     .src(src.index)
-    .pipe(inject(gulp.src([dest.scripts+"/bower_components.min.js", dest.stylesheets+"/bower_components.min.css"], {read: false}),
+    .pipe(inject(gulp.src([dest.scripts+"/bower_components.min.js", dest.stylesheets+"/bower_components*.min.css"], {read: false}),
                  {ignorePath: paths.dist, addRootSlash: false, name: 'bower'}))
     .pipe(inject(gulp.src([dest.scripts+"/"+name+".min.js", dest.stylesheets+"/"+name+".min.css"], {read: false}),
                  {ignorePath: paths.dist, addRootSlash: false}))

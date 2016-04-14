@@ -8,6 +8,7 @@ angular.module('app', [
     'ngRoute'
     'app.settings'
     'app.accueil'
+    'app.equipement'
 ])
   .config ($routeProvider) ->
     $routeProvider

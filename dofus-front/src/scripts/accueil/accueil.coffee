@@ -12,7 +12,27 @@ angular.module('app.accueil', ['misc.accueilTemplate', 'ngRoute', 'xin.backend']
 
 
   .controller 'AccueilController', ($scope, Backend) ->
-    Backend("equipements").get(
-      (response) -> console.log("success", response)
-      (response) -> console.log("error", response)
-    )
+    $scope.base =
+      vitalite: 0
+      sagesse: 0
+      force: 0
+      intelligence: 0
+      agilite: 0
+      chance: 0
+    $scope.parcho =
+      vitalite: 0
+      sagesse: 0
+      force: 0
+      intelligence: 0
+      agilite: 0
+      chance: 0
+    $scope.objectif =
+      vitalite: 0
+      sagesse: 0
+      force: 0
+      intelligence: 0
+      agilite: 0
+      chance: 0
+
+    $scope.compute = ->
+      console.log("TODO")

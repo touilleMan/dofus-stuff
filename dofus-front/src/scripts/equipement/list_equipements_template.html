@@ -1,0 +1,14 @@
+<div>
+  <a class="btn btn-default" href="#/accueil">Accueil</a>
+</div>
+
+<div>{{equipements.length}} résultats</div>
+<div ng-repeat="equipement in equipements">
+  Type {{equipement.type}}
+  <br>
+  Nom {{equipement.title}}
+  <br>
+  Niveau {{equipement.level}}
+  <br>
+  Effets {{equipement.effects}}
+</div>
