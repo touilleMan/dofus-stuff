@@ -1,0 +1,8 @@
+{
+  "name": "dofus",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "1.5.3",
+    "angular-route": "1.5.3"
+  }
+}

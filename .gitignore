@@ -1,0 +1,9 @@
+# front
+node_modules/
+bower_components/
+dist/
+.tmp/
+
+# back
+venv/
+__pycache__/

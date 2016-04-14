@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "outDir": "dist/app",
+    "target": "ES5",
+    "module": "system",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "removeComments": false,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "exclude": [],
+
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "atom": {
+    "formatOnSave": true
+  }
+}
