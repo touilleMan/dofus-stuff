@@ -12,8 +12,9 @@ from dofus.model.equipement import Equipement
 populate_manager = Manager(usage="Auto populate database")
 
 DOFUS_DOMAIN = "http://www.dofus.com"
-amulettes = "http://www.dofus.com/fr/mmorpg/encyclopedie/equipements?text&type_id%5B0%5D=1&EFFECTMAIN_and_or=AND&size=96&page="
-amulettes_pages = list(range(1, 5))
+equipements = "http://www.dofus.com/fr/mmorpg/encyclopedie/equipements?text=&type_id[0]=1&type_id[1]=9&type_id[2]=11&type_id[3]=82&type_id[4]=17&type_id[5]=10&type_id[6]=16&type_id[7]=23&type_id[8]=81&type_id[9]=151&size=96&page="
+equipements_pages = list(range(1, 26))
+
 
 # class HTMLParser()
 # print("url", r.url)
@@ -210,6 +211,7 @@ def rescue_href(tree):
 
 def rescue_element_page(href):
     dofus_link = DOFUS_DOMAIN+href
+    print(DOFUS_DOMAIN+href)
     # check if allready exist
     if Equipement.objects(dofus_link=dofus_link).count():
         return
@@ -224,15 +226,16 @@ def rescue_element_page(href):
         if "effects" in list(eq.keys()):
             for effect in eq["effects"]:
                 m = re.match(r"(?P<from>-?\d+)( à (?P<to>-?\d+))?(?P<percent>%?) (?P<carac>.*)", effect)
-                _from = m.group('from')
-                _to = m.group('to')
-                _percent = m.group('percent')
-                _carac = m.group('carac')
-                effects[_carac] = {
-                    'min': _from,
-                    'max': _to if (_to) else _from,
-                    'percent': True if (_percent == "%") else False
-                }
+                if m:
+                    _from = m.group('from')
+                    _to = m.group('to')
+                    _percent = m.group('percent')
+                    _carac = m.group('carac')
+                    effects[_carac] = {
+                        'min': _from,
+                        'max': _to if (_to) else _from,
+                        'percent': True if (_percent == "%") else False
+                    }
         equipement = Equipement(title=eq["title"], level=eq["level"], type=eq["type"],
                                 image=eq["picture"], effects=effects, dofus_link=dofus_link)
         try:
@@ -245,19 +248,20 @@ def rescue_element_page(href):
 
 @populate_manager.command
 def populate():
-    # for page in amulettes_pages:
-    for page in amulettes_pages:
-        r = get(amulettes+str(page))
+    count = 0
+    for page in equipements_pages:
+        r = get(equipements+str(page))
         if r.status_code == 200:
             parser = MyHTMLParserList()
             html = r.text
             parser.feed(html)
             hrefs = rescue_href(parser.tree)
             for href in hrefs:
+                count = count+1
                 rescue_element_page(href)
-
         else:
             print("code", r.status_code)
+    print(count)
 
 
 @populate_manager.command

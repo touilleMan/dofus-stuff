@@ -17,5 +17,5 @@ class EquipementListAPI(Resource):
 class EquipementAPI(Resource):
 
     def get(self, item_id=None):
-        data = "TOTO"
-        return data
+        equipement = Equipement.objects(id=item_id)
+        return jsonify(items=equipement)

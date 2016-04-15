@@ -10,7 +10,7 @@ class Equipement(Document):
     level = IntField(default=1, required=True)
     dofus_link = URLField(null=True)
     image = URLField(required=True)
-    type = StringField(choices=("Amulette", "Anneau", "Bottes", "Cape", "Bouclier", "Ceinture", "Chapeau", "Dofus"),
+    type = StringField(choices=("Amulette", "Anneau", "Bottes", "Cape", "Bouclier", "Ceinture", "Chapeau", "Dofus", "Trophée", "Sac à dos"),
                        required=True)
     effects = DictField(null=True)
     conditions = ListField(null=True)

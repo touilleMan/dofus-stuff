@@ -2,13 +2,38 @@
   <a class="btn btn-default" href="#/accueil">Accueil</a>
 </div>
 
-<div>{{equipements.length}} résultats</div>
-<div ng-repeat="equipement in equipements">
-  Type {{equipement.type}}
-  <br>
-  Nom {{equipement.title}}
-  <br>
-  Niveau {{equipement.level}}
-  <br>
-  Effets {{equipement.effects}}
+<div class="row">
+  <div class="col-xs-2">
+    Type
+    <select ng-model="type">
+      <option value="Amulettes">Amulettes</option>
+      <option value="Anneaux">Anneaux</option>
+      <option value="Bottes">Bottes</option>
+      <option value="Bouclier">Bouclier</option>
+      <option value="Cape">Cape</option>
+      <option value="Ceinture">Ceinture</option>
+      <option value="Chapeau">Chapeau</option>
+      <option value="Dofus">Dofus</option>
+    </select>
+  </div>
+
+  <div class="col-xs-10">
+    <table class="row-border hover">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Type</th>
+          <th>Niveau</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr class="" ng-repeat="equipement in equipements" ng-click="onClick()">
+          <td>{{equipement.title}}</td>
+          <td>{{equipement.type}}</td>
+          <td>{{equipement.level}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
